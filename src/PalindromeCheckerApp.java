@@ -6,34 +6,31 @@ public class PalindromeCheckerApp {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Choose Algorithm:");
-        System.out.println("1. Stack Strategy");
-        System.out.println("2. Deque Strategy");
-
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-
         System.out.print("Enter a sentence: ");
         String input = scanner.nextLine();
 
-        boolean result;
+        // Stack strategy performance
+        long startStack = System.nanoTime();
+        boolean stackResult = stackStrategy(input);
+        long endStack = System.nanoTime();
 
-        if (choice == 1) {
-            result = stackStrategy(input);
-        } else {
-            result = dequeStrategy(input);
-        }
+        // Deque strategy performance
+        long startDeque = System.nanoTime();
+        boolean dequeResult = dequeStrategy(input);
+        long endDeque = System.nanoTime();
 
-        if (result) {
-            System.out.println("\"" + input + "\" is a Palindrome.");
-        } else {
-            System.out.println("\"" + input + "\" is NOT a Palindrome.");
-        }
+        System.out.println("\nResults:");
+
+        System.out.println("Stack Strategy Result: " + stackResult);
+        System.out.println("Stack Execution Time: " + (endStack - startStack) + " ns");
+
+        System.out.println("Deque Strategy Result: " + dequeResult);
+        System.out.println("Deque Execution Time: " + (endDeque - startDeque) + " ns");
 
         scanner.close();
     }
 
-    // Strategy 1: Stack
+    // Stack strategy
     public static boolean stackStrategy(String input) {
 
         String processed = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
@@ -53,7 +50,7 @@ public class PalindromeCheckerApp {
         return true;
     }
 
-    // Strategy 2: Deque
+    // Deque strategy
     public static boolean dequeStrategy(String input) {
 
         String processed = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
