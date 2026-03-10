@@ -9,10 +9,9 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a sentence: ");
         String input = scanner.nextLine();
 
-        // Normalize string (Ignore case, spaces & special characters)
-        String processed = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        PalindromeCheckerApp checker = new PalindromeCheckerApp();
 
-        if (isPalindrome(processed)) {
+        if (checker.checkPalindrome(input)) {
             System.out.println("\"" + input + "\" is a Palindrome.");
         } else {
             System.out.println("\"" + input + "\" is NOT a Palindrome.");
@@ -21,14 +20,17 @@ public class PalindromeCheckerApp {
         scanner.close();
     }
 
-    public static boolean isPalindrome(String str) {
+    // Palindrome checking method
+    public boolean checkPalindrome(String input) {
+
+        String processed = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
         int left = 0;
-        int right = str.length() - 1;
+        int right = processed.length() - 1;
 
         while (left < right) {
 
-            if (str.charAt(left) != str.charAt(right)) {
+            if (processed.charAt(left) != processed.charAt(right)) {
                 return false;
             }
 
